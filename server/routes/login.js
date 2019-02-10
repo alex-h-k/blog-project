@@ -1,0 +1,26 @@
+const express = require('express')
+
+const db = require('../../db')
+
+const router = express.Router()
+
+router.use(express.json())
+router.post('/login', (req, res) => {
+  
+  var email = req.body.username
+  var password = req.body.password
+  db.getUserByEmail(email)
+    .then(user =>{
+      console.log('-----', user);
+      if (!user) {
+        return res.status(401).send('failed');
+      }
+      if (user.password == password ){
+        user_id = user.id
+        console.log('testing')
+         res.send('ok')
+      }
+    }).catch(err => res.status(401).send('failed'))
+})
+
+module.exports = router;
