@@ -30,7 +30,9 @@ class Login extends Component {
          this.setState({redirectToReferrer: true});
         //  route.location.push('/home');
        }
-       
+       else {
+         console.log(result.text)
+       }
       }).catch((err) => {
         alert("Please check your email or password!");
       })
@@ -56,11 +58,13 @@ class Login extends Component {
         <div className="medium-5 columns left">
           
           <h4>Login</h4>
+        
           <label>Username</label>
           <input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
           <label>Password</label>
           <input type="password" name="password"  placeholder="Password" onChange={this.onChange}/>
           <input type="submit" className="button success" value="Login" onClick={this.login}/>
+         
           <a href="/signup">Registration</a>
         </div>
       </div>
