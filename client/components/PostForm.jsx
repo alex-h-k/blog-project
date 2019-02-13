@@ -1,66 +1,43 @@
 import React from 'react'
-import { addPost, updatePost } from '../api'
+import {addPost, updatePost} from '../api'
 
 class PostForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-
+    this.state = {
+      title: '',
+      content: ''
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    const { post } = this.props
-    if (post) this.setNewPost(post)
-  }
 
-  componentDidReceiveProps(nextProps) {
-    const { post } = nextProps
-    if (post && !this.props.post) this.setNewPost(post)
-  }
 
-  setNewPost(post) {
-    const paragraphs = {
-      paragraphs: post.paragraphs.join('\n')
-    }
-    this.setState({
-      post: Object.assign({}, post, paragraphs)
-    })
-  }
 
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault()
-    const { post, history, fetchPosts } = this.props
-
+    const {post, history, fetchPosts} = this.props
     if (post) {
-      updatePost(this.state.post)
+      updatePost(this.state)
         .then(fetchPosts)
-        .then(navigateToPost(post.id))
-        .catch(err => this.setState({ errorMessage: err.message }))
+        .then(() => history.push(`/posts/${post.id}`))
     } else {
-      addPost(this.state.post)
+      addPost(this.state)
         .then(newPost => {
           fetchPosts()
-            .then(navigateToPost(newPost.id))
+            .then(() => history.push(`/posts/${newPost.id}`))
         })
-        .catch(err => this.setState({ errorMessage: err.message }))
-    }
-
-    function navigateToPost(id) {
-      return () => history.push(`/posts/${id}`)
     }
   }
 
-  handleChange(e) {
-    let post = this.state.post
-    post[e.target.name] = e.target.value
-
+  handleChange (e) {
     this.setState({
-      post
+      [e.target.name]: e.target.value
     })
   }
 
-  render() {
+  render () {
     return (
       <form className='pure-form pure-form-aligned' onSubmit={this.handleSubmit}>
         {this.props.post
@@ -74,7 +51,7 @@ class PostForm extends React.Component {
             <input
               type='text'
               name='title'
-              value={this.state.post.title}
+              value={this.state.title}
               onChange={this.handleChange}
             />
           </div>
@@ -83,7 +60,7 @@ class PostForm extends React.Component {
             <label htmlFor='paragraphs'>Blog</label>
             <textarea
               name='paragraphs'
-              value={this.state.post.paragraphs}
+              value={this.state.paragraphs}
               onChange={this.handleChange}>
             </textarea>
           </div>
@@ -92,12 +69,9 @@ class PostForm extends React.Component {
             <input className='pure-button' type='submit' />
           </div>
         </fieldset>
-
-        <p>{this.state.errorMessage && this.state.errorMessage}</p>
       </form>
     )
   }
 }
 
 export default PostForm
-
