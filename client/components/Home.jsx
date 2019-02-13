@@ -35,6 +35,7 @@ class Home extends React.Component {
       this.fetchPosts();
     });
   };
+
   handleLogOut = e => {
     e.preventDefault();
     sessionStorage.clear();
@@ -46,34 +47,49 @@ class Home extends React.Component {
     }
     console.log(this.state);
     return (
-      <div>
+      <div className="row">
         <p> Welcome to home page</p>
-        <form>
-          <label>
-            Title:
-            <input type="text" name="title" onChange={this.handleChange} />
-          </label>
-          <br />
-          <label>
-            Content:
-            <textarea
-              placeholder="How do you feel"
-              name="content"
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <button onClick={this.handleSubmit}>Submit</button>
-        </form>
-        <button onClick={this.handleLogOut}>login out</button>
-        {this.state.posts &&
-          this.state.posts.map(post => (
-            <div>
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-              <hr />
+        <div className="col" data-spy="affix" data-offset-top="50">
+          <form>
+            <div className="form-group">
+              <label>
+                Title:
+                <input
+                  className="form-control"
+                  type="text"
+                  name="title"
+                  onChange={this.handleChange}
+                />
+              </label>
             </div>
-          ))}
+            <div className="form-group">
+              <label>
+                Content:
+                <textarea
+                  className="form-control"
+                  rows="6"
+                  placeholder="How do you feel"
+                  name="content"
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+            <br />
+            <button onClick={this.handleSubmit}>Submit</button>
+            <button onClick={this.handleLogOut}>log out</button>
+          </form>
+        </div>
+        <div className="col" data-spy="affix" data-offset-top="10">
+          <h4>Self-compassion Journal</h4>
+          {this.state.posts &&
+            this.state.posts.map(post => (
+              <div>
+                <h3>{post.title}</h3>
+                <h5> className="text-warning">{post.content}</h5>
+                <hr />
+              </div>
+            ))}
+        </div>
       </div>
     );
   }

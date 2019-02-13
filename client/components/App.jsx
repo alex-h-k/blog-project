@@ -30,8 +30,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <h1>We've all been there, you are not alone.</h1>
-          <p>{sessionStorage.getItem("name")} 你好！</p>
+          <h4>{sessionStorage.getItem("name")} 你好！</h4>
           {this.state.loggedin && <Redirect to={"/home"} />}
           <Route
             exact

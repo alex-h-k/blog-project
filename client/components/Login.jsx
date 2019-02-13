@@ -46,8 +46,9 @@ class Login extends Component {
     }
 
     return (
-      <div className="row" id="Body">
-        <div className="medium-5 columns left">
+      <div className="login">
+        <div>
+          <h1>We've all been there, you are not alone.</h1>
           <h4>Login</h4>
           <form action="">
             <label>Username: </label>
