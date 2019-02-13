@@ -16,21 +16,23 @@ class App extends Component {
     this.setState({ username: name });
   };
   componentDidMount() {
-    console.log(localStorage.getItem("userData"));
-    if (localStorage.getItem("userData")) {
+    console.log(sessionStorage.getItem("userData"));
+    if (sessionStorage.getItem("userData")) {
       this.setState({ loggedin: true });
     }
-    if (this.state.loggedin) {
-      <Redirect to={"/home"} />;
-    }
   }
+
+  logOut = () => {
+    this.setState({ loggedin: false });
+  };
 
   render() {
     return (
       <Router>
         <div>
           <h1>We've all been there, you are not alone.</h1>
-          <p>{localStorage.getItem("name")} 你好！</p>
+          <p>{sessionStorage.getItem("name")} 你好！</p>
+          {this.state.loggedin && <Redirect to={"/home"} />}
           <Route
             exact
             path="/"
@@ -38,7 +40,11 @@ class App extends Component {
               <Login {...props} setUserName={this.setUserName} />
             )}
           />
-          <Route exact path="/home" component={Home} />
+          <Route
+            exact
+            path="/home"
+            render={props => <Home {...props} logOut={this.logOut} />}
+          />
         </div>
       </Router>
     );

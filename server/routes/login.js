@@ -23,7 +23,14 @@ router.post("/login", (req, res) => {
     .catch(err => res.status(401).send("failed"));
 });
 
-router.post("/posts", (req, res) => {
+router.get("/home", (req, res) => {
+  db.getPosts().then(posts => {
+    res.json(posts);
+  });
+});
+
+router.post("/home", (req, res) => {
+  console.log(req.body);
   let newPost = {
     title: req.body.title,
     content: req.body.content

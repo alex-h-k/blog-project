@@ -1,5 +1,6 @@
 import React from "react";
-import { getPosts } from "./api/index";
+import { Redirect } from "react-router-dom";
+import { getPosts, addPost, updatePost } from "./api/index";
 class Home extends React.Component {
   constructor() {
     super();
@@ -19,14 +20,10 @@ class Home extends React.Component {
         this.setState({ errorMessage: err.message });
       });
   }
-  navigateToPost(id) {
-    return () => history.push(`/posts/${id}`);
-  }
 
   handleChange = e => {
     let post = this.state.post;
     post[e.target.name] = e.target.value;
-    console.log(e.target.value);
     this.setState({
       post
     });
@@ -34,14 +31,23 @@ class Home extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    addPost(this.state.post).then(newPost => {
-      this.fetchPosts().then(navigateToPost(post.id));
+    addPost(this.state.post).then(() => {
+      this.fetchPosts();
     });
   };
+  handleLogOut = e => {
+    e.preventDefault();
+    sessionStorage.clear();
+    this.props.logOut();
+  };
   render() {
+    if (sessionStorage.getItem("userData") == null) {
+      <Redirect to={"/"} />;
+    }
+    console.log(this.state);
     return (
       <div>
-        <p> Welcome to home page!!</p>
+        <p> Welcome to home page</p>
         <form>
           <label>
             Title:
@@ -57,8 +63,17 @@ class Home extends React.Component {
             />
           </label>
           <br />
-          <button>Submit</button>
+          <button onClick={this.handleSubmit}>Submit</button>
         </form>
+        <button onClick={this.handleLogOut}>login out</button>
+        {this.state.posts &&
+          this.state.posts.map(post => (
+            <div>
+              <h3>{post.title}</h3>
+              <p>{post.content}</p>
+              <hr />
+            </div>
+          ))}
       </div>
     );
   }

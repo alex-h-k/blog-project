@@ -23,8 +23,8 @@ class Login extends Component {
         .then(result => {
           console.log(result);
           if (result && result.body.status == "ok") {
-            localStorage.setItem("userData", true);
-            localStorage.setItem("name", result.body.name);
+            sessionStorage.setItem("userData", true);
+            sessionStorage.setItem("name", result.body.name);
             this.props.setUserName(result.body.name);
             this.setState({ redirectToReferrer: true });
             //  route.location.push('/home');

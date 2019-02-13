@@ -7,8 +7,9 @@ export function getLoginData(url, state) {
 }
 export function getPosts() {
   return request
-    .get("/v1/posts")
+    .get("/v1/home")
     .then(res => {
+      console.log(res);
       const posts = res.body;
       return posts;
     })
@@ -18,7 +19,7 @@ export function getPosts() {
 }
 export function addPost(post) {
   return request
-    .post("/v1/posts")
+    .post("/v1/home")
     .send(post)
     .then(res => {
       const returnedPost = res.body;
@@ -28,7 +29,7 @@ export function addPost(post) {
 
 export function updatePost(post) {
   return request
-    .put(`/v1/posts/${post.id}`)
+    .put(`/v1/home/${post.id}`)
     .send(post)
     .then(res => {
       const returnedPost = res.body;
