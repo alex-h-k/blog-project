@@ -43,7 +43,9 @@ class Home extends React.Component {
   };
   render() {
     if (sessionStorage.getItem("userData") == null) {
-      <Redirect to={"/"} />;
+      console.log("hit redirect");
+
+      return <Redirect to={"/"} />;
     }
     console.log(this.state);
     return (
@@ -85,7 +87,7 @@ class Home extends React.Component {
             this.state.posts.map(post => (
               <div>
                 <h3>{post.title}</h3>
-                <h5> className="text-warning">{post.content}</h5>
+                <h5 className="text-warning">{post.content}</h5>
                 <hr />
               </div>
             ))}

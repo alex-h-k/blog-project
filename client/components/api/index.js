@@ -27,12 +27,12 @@ export function addPost(post) {
     });
 }
 
-export function updatePost(post) {
-  return request
-    .put(`/v1/home/${post.id}`)
-    .send(post)
-    .then(res => {
-      const returnedPost = res.body;
-      return returnedPost;
-    });
-}
+// export function updatePost(post) {
+//   return request
+//     .put(`/v1/home/${post.id}`)
+//     .send(post)
+//     .then(res => {
+//       const returnedPost = res.body;
+//       return returnedPost;
+//     });
+// }

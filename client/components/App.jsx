@@ -23,6 +23,7 @@ class App extends Component {
   }
 
   logOut = () => {
+    console.log("hit");
     this.setState({ loggedin: false });
   };
 
