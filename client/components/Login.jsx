@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import {Redirect} from 'react-router-dom';
-import { getLoginData } from "./api";
+import { getLoginData, registerNewUser as apiRegisterNewUser } from "./api";
 import { Redirect } from "react-router-dom";
 
 class Login extends Component {
@@ -10,16 +10,37 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectToReferrer: false
+      newUsername: "",
+      newPassword: "",
+      redirectToReferrer: false,
+      showRegistration: false
     };
 
     this.login = this.login.bind(this);
+    this.registration = this.registration.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.registerNewUser = this.registerNewUser.bind(this)
+  }
+
+  registerNewUser() {
+    console.log('reg new user fn')
+    apiRegisterNewUser(this.state)
+      //more to do below  
+      .then(res => {
+        console.log('reg new user in Login comp ', res)
+      })
+  }
+
+  registration() {
+    this.setState({
+      showRegistration: true
+    })
+
   }
 
   login() {
     if (this.state.username && this.state.password) {
-      getLoginData("/v1/login", this.state)
+      getLoginData("/api/v1/login", this.state)
         .then(result => {
           console.log(result);
           if (result && result.body.status == "ok") {
@@ -56,7 +77,7 @@ class Login extends Component {
               type="text"
               name="username"
               placeholder="Username"
-              required={true}
+              required
               onChange={this.onChange}
             />
             <br />
@@ -65,7 +86,7 @@ class Login extends Component {
               type="password"
               name="password"
               placeholder="Password"
-              required={true}
+              required
               onChange={this.onChange}
             />
           </form>
@@ -77,11 +98,33 @@ class Login extends Component {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick="location.href='/signup'"
+            onClick={this.registration}
           >
             Registration
           </button>
         </div>
+        {this.state.showRegistration && <div className="register">
+          <form action="">
+            <label>Username: </label>
+            <input
+              type="text"
+              name="newUsername"
+              placeholder="Username"
+              required
+              onChange={this.onChange}
+            />
+            <br />
+            <label>Password: </label>
+            <input
+              type="password"
+              name="newPassword"
+              placeholder="Password"
+              required
+              onChange={this.onChange}
+            />
+          </form>
+          <button onClick={this.registerNewUser}>Register</button>
+        </div>}
       </div>
     );
   }

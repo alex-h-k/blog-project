@@ -16,14 +16,13 @@ class App extends Component {
     this.setState({ username: name });
   };
   componentDidMount() {
-    console.log(sessionStorage.getItem("userData"));
+    console.log('session storage - ', sessionStorage.getItem("userData"));
     if (sessionStorage.getItem("userData")) {
       this.setState({ loggedin: true });
     }
   }
 
   logOut = () => {
-    console.log("hit");
     this.setState({ loggedin: false });
   };
 
@@ -31,7 +30,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <h4>{sessionStorage.getItem("name")} 你好！</h4>
+          {/* <h4>{sessionStorage.getItem("name")} 你好！</h4> */}
           {this.state.loggedin && <Redirect to={"/home"} />}
           <Route
             exact
