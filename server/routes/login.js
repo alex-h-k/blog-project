@@ -4,8 +4,10 @@ const db = require("../db/db");
 
 const router = express.Router();
 
+
+
 router.use(express.json());
-router.post("/login", (req, res) => {
+router.post("/", (req, res) => {
   var email = req.body.username;
   var password = req.body.password;
   console.log(password, email);

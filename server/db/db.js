@@ -1,10 +1,16 @@
+<<<<<<< HEAD:server/db/db.js
 const connection = require("./connection");
+=======
+const environment = process.env.NODE_ENV || "development";
+const config = require("../../knexfile")[environment];
+const connection = require("knex")(config);
+>>>>>>> e0570df8a145d0fdc3395111a0f8a630f1107eee:server/db/db.js
 
 module.exports = {
   getUserByEmail: getUserByEmail,
   getUsers: getUsers,
   addNewPost: addNewPost,
-  getPosts: getPosts
+  getPosts: getPosts,
 };
 
 function getUsers(db = connection) {
