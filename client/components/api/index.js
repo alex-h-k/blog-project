@@ -35,6 +35,7 @@ export function registerNewUser(newUser) {
   console.log("reg new user in api index - ", newUser)
   return request
     .post("/api/v1/auth/register")
+    .send(newUser)
     //needs to be worked on past this point
     .then(res => {
       console.log(res)

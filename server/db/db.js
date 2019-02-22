@@ -1,12 +1,12 @@
 const environment = process.env.NODE_ENV || "development";
-const config = require("./knexfile")[environment];
+const config = require("../../knexfile")[environment];
 const connection = require("knex")(config);
 
 module.exports = {
   getUserByEmail: getUserByEmail,
   getUsers: getUsers,
   addNewPost: addNewPost,
-  getPosts: getPosts
+  getPosts: getPosts,
 };
 
 function getUsers(db = connection) {
