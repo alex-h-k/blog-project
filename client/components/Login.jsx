@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import {Redirect} from 'react-router-dom';
-import { getLoginData, registerNewUser as apiRegisterNewUser } from "./api";
+import { getLoginData, registerNewUser as apiRegisterNewUser } from "../api";
 import { Redirect } from "react-router-dom";
 
 class Login extends Component {
@@ -19,23 +19,22 @@ class Login extends Component {
     this.login = this.login.bind(this);
     this.registration = this.registration.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.registerNewUser = this.registerNewUser.bind(this)
+    this.registerNewUser = this.registerNewUser.bind(this);
   }
 
   registerNewUser() {
-    console.log('reg new user fn')
+    // console.log("reg new user fn");
     apiRegisterNewUser(this.state)
-      //more to do below  
+      //more to do below
       .then(res => {
-        console.log('reg new user in Login comp ', res)
-      })
+        console.log("reg new user in Login comp ", res);
+      });
   }
 
   registration() {
     this.setState({
       showRegistration: true
-    })
-
+    });
   }
 
   login() {
@@ -103,28 +102,30 @@ class Login extends Component {
             Registration
           </button>
         </div>
-        {this.state.showRegistration && <div className="register">
-          <form action="">
-            <label>Username: </label>
-            <input
-              type="text"
-              name="newUsername"
-              placeholder="Username"
-              required
-              onChange={this.onChange}
-            />
-            <br />
-            <label>Password: </label>
-            <input
-              type="password"
-              name="newPassword"
-              placeholder="Password"
-              required
-              onChange={this.onChange}
-            />
-          </form>
-          <button onClick={this.registerNewUser}>Register</button>
-        </div>}
+        {this.state.showRegistration && (
+          <div className="register">
+            <form action="">
+              <label>Username: </label>
+              <input
+                type="text"
+                name="newUsername"
+                placeholder="Username"
+                required
+                onChange={this.onChange}
+              />
+              <br />
+              <label>Password: </label>
+              <input
+                type="password"
+                name="newPassword"
+                placeholder="Password"
+                required
+                onChange={this.onChange}
+              />
+            </form>
+            <button onClick={this.registerNewUser}>Register</button>
+          </div>
+        )}
       </div>
     );
   }

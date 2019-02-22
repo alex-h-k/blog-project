@@ -16,7 +16,7 @@ class App extends Component {
     this.setState({ username: name });
   };
   componentDidMount() {
-    console.log('session storage - ', sessionStorage.getItem("userData"));
+    // console.log('session storage - ', sessionStorage.getItem("userData"));
     if (sessionStorage.getItem("userData")) {
       this.setState({ loggedin: true });
     }

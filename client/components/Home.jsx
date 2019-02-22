@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { getPosts, addPost, updatePost } from "./api/index";
+import { getPosts, addPost, updatePost } from "../api/index";
 class Home extends React.Component {
   constructor() {
     super();

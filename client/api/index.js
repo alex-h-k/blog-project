@@ -1,6 +1,5 @@
 import request from "superagent";
 
-
 export function getLoginData(url, state) {
   return request.post(url).send({
     username: state.username,
@@ -32,16 +31,17 @@ export function addPost(post) {
 }
 
 export function registerNewUser(newUser) {
-  console.log("reg new user in api index - ", newUser)
-  return request
-    .post("/api/v1/auth/register")
-    //needs to be worked on past this point
-    .then(res => {
-      console.log(res)
-    })
+  console.log("reg new user in api index - ", newUser);
+  return (
+    request
+      .post("/api/v1/auth/register")
+      //needs to be worked on past this point
+      .then(res => {
+        console.log(res.body);
+        res.body;
+      })
+  );
 }
-
-
 
 // export function updatePost(post) {
 //   return request
